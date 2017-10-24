@@ -45,7 +45,7 @@ class FolderTest extends TestCase
       public function view_folders()
       {
         $folder = factory('App\Folder', 10)->create();
-        $json = json_encode(Folder::all());
+        $json = Folder::all()->toJson();
         $response = $this->get('/api/folder');
         $response->assertStatus(200);
         $response->assertSee($json);
