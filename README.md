@@ -12,7 +12,7 @@
 6.In the terminal, run the command <b>php artisan key:generate</b> to generate the app key.
 7. In the terminal, run the command <b>php artisan migrate</b> to create the tables in your database.
 8. To check for the routes, run the <b>php artisan route:list</b> in the terminal.
-9. To run a test for the app, run the command <b>phpunit</b> in the terminal. If it doesn't work, try running the command <b>vendor/bin/phpunit</b> instead.
+9. To run a test for the app, run the command <b>phpunit</b> in the terminal. If it doesn't work, try running the command <b>vendor\\bin\\phpunit</b> instead.
 10. To run the app, run the command <b>php artisan serve</b> in the terminal. The default URL would be <b>localhost:8000</b>
 
 <h5>To populate the database</h5>
