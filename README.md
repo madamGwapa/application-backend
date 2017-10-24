@@ -4,7 +4,7 @@
 
 <h5>Steps on how to install </h5>
 
-1. Install laravel in your machine. You can refer to <a href="https://laravel.com/docs/5.5"> for more information.
+1. Install laravel in your machine. You can refer to the <a href="https://laravel.com/docs/5.5">Laravel Documentation</a> for more information.
 2. Open the project in your terminal and run <b>composer update </b>.
 3. In the project folder, copy and paste the file named <b>env.example</b> and name it <b>.env</b>
 4. Open the <b>.env</b> file and change the settings of the database.
