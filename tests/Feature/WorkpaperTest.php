@@ -34,9 +34,9 @@ class WorkpaperTest extends TestCase
 
       /** @test */
       public function delete_paper(){
-        
+
         $paper = factory('App\Workpaper')->create();
-        $response = $this->delete('/api/work-paper/'.$paper->id);
+        $response = $this->delete('/api/work-paper/'.$paper->reference);
         $response->assertStatus(200);
         $response->assertSee('Workpaper Deleted Succesfully');
       }

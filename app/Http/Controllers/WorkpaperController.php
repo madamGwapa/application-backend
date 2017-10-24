@@ -95,7 +95,7 @@ class WorkpaperController extends Controller
       $paper = Workpaper::find($id);
       $paper->workpaper_name = $request->workpaper_name;
       $paper->folder_id = $request->folder_id;
-      $paper->reference = $request->reference; 
+      $paper->reference = $request->reference;
       if($paper->save()){
         return response()->json(['success' => true, 'message' => 'Workpaper Updated Succesfully'], 200);
       }
@@ -109,7 +109,7 @@ class WorkpaperController extends Controller
      */
     public function destroy($id)
     {
-        $paper = Workpaper::find($id)->first();
+        $paper = Workpaper::where('reference', $id)->first();
         if($paper->delete()){
           return response()->json(['success' => true, 'message' => 'Workpaper Deleted Succesfully'], 200);
         }
