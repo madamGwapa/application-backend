@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\WorkPaper;
+use App\Workpaper;
 
 class WorkpaperTest extends TestCase
 {
