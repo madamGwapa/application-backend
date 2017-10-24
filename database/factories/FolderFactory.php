@@ -15,7 +15,7 @@ $factory->define(App\Workpaper::class, function (Faker $faker) {
         'reference' => $faker->word,
         'content' => $faker->sentence,
         'folder_id' => function () {
-            return factory('App\Folder')->create()->id
+            return factory('App\Folder')->create()->id;
         }
     ];
 });
