@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 use App\Workpaper;
 use App\Folder;
 
@@ -45,11 +46,11 @@ class WorkpaperController extends Controller
         }
         $code = substr($request->reference, 0, 1);
         $paper = new Workpaper;
-        $paper->folder_id = Folder::where('code', $code)->first()->id;
+        $paper->folder_id = $request->folder_id;//Folder::where('code', $code)->first()->id;
         $paper->reference = $request->reference;
         $paper->workpaper_name = $request->workpaper_name;
         if($paper->save()){
-          return response()->json(['success' => true, 'message' => 'Workpaper Added Successfully'], 200);
+          return response()->json(['success' => true, 'message' => 'Workpaper Added Succesfully'], 200);
         }
     }
 
@@ -90,11 +91,13 @@ class WorkpaperController extends Controller
       if ($validator->fails()) {
           return response()->json(['errors'=>$validator->errors()], 400);
       }
-      $code = substr($request->reference, 0, 1);
+/*      $code = substr($request->reference, 0, 1);*/
       $paper = Workpaper::find($id);
       $paper->workpaper_name = $request->workpaper_name;
+      $paper->folder_id = $request->folder_id;
+      $paper->reference = $request->reference; 
       if($paper->save()){
-        return response()->json(['success' => true, 'message' => 'Workpaper Updated Successfully'], 200);
+        return response()->json(['success' => true, 'message' => 'Workpaper Updated Succesfully'], 200);
       }
     }
 
@@ -106,9 +109,9 @@ class WorkpaperController extends Controller
      */
     public function destroy($id)
     {
-        $paper = Workpaper::where('reference', $id)->first();
+        $paper = Workpaper::find($id)->first();
         if($paper->delete()){
-          return response()->json(['success' => true, 'message' => 'Workpaper Deleted Successfully'], 200);
+          return response()->json(['success' => true, 'message' => 'Workpaper Deleted Succesfully'], 200);
         }
         else{
             return response()->json(['success' => false, 'message' => 'Workpaper Not Deleted'], 400);

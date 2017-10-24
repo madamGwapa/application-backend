@@ -20,7 +20,7 @@ class FolderTest extends TestCase
        $folder = factory('App\Folder')->make();
        $response = $this->post('/api/folder', $folder->toArray());
        $response->assertStatus(200);
-       $response->assertSee('Folder Succesfully Added');
+       $response->assertSee('Folder Added Succesfully');
      }
 
      /** @test */
@@ -30,7 +30,7 @@ class FolderTest extends TestCase
         $edit = factory('App\Folder')->make();
         $response = $this->patch('/api/folder/'.$folder->id, $edit->toArray());
         $response->assertStatus(200);
-        $response->assertSee('Folder Succesfully Updated');
+        $response->assertSee('Folder Updated Succesfully');
       }
 
       /** @test */
@@ -38,7 +38,7 @@ class FolderTest extends TestCase
         $folder = factory('App\Folder')->create();
         $response = $this->delete('/api/folder/'.$folder->id);
         $response->assertStatus(200);
-        $response->assertSee('Folder Succesfully Deleted');
+        $response->assertSee('Folder Deleted Succesfully');
       }
 
       /** @test */

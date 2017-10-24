@@ -17,9 +17,9 @@ class WorkpaperTest extends TestCase
      /** @test */
      public function add_paper(){
        $paper = factory('App\Workpaper')->make();
-       $response = $this->post('/api/work-paper', $folder->toArray());
+       $response = $this->post('/api/work-paper', $paper->toArray());
        $response->assertStatus(200);
-       $response->assertSee('Workpaper Succesfully Added');
+       $response->assertSee('Workpaper Added Succesfully');
      }
 
      /** @test */
@@ -29,15 +29,16 @@ class WorkpaperTest extends TestCase
         $edit = factory('App\Workpaper')->make();
         $response = $this->patch('/api/work-paper/'.$paper->id, $edit->toArray());
         $response->assertStatus(200);
-        $response->assertSee('Folder Succesfully Updated');
+        $response->assertSee('Workpaper Updated Succesfully');
       }
 
       /** @test */
       public function delete_paper(){
-        $folder = factory('App\Workpaper')->create();
-        $response = $this->delete('/api/work-paper/'.$folder->id);
+        
+        $paper = factory('App\Workpaper')->create();
+        $response = $this->delete('/api/work-paper/'.$paper->id);
         $response->assertStatus(200);
-        $response->assertSee('Workpaper Succesfully Deleted');
+        $response->assertSee('Workpaper Deleted Succesfully');
       }
 
       /** @test */

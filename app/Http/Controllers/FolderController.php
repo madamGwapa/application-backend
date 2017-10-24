@@ -47,7 +47,7 @@ class FolderController extends Controller
       $folder->code = $request->code;
       $folder->folder_name = $request->folder_name;
       if($folder->save()){
-        return response()->json(['success' => true, 'message' => 'Folder Added Successfully'], 200);
+        return response()->json(['success' => true, 'message' => 'Folder Added Succesfully"'], 200);
       }
     }
 
@@ -83,15 +83,18 @@ class FolderController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-              'folder_name' => 'required'
+              'folder_name' => 'required',
+              'code' => 'required'
               ]);
         if ($validator->fails()) {
             return response()->json(['errors'=>$validator->errors()], 400);
         }
         $folder = Folder::find($id);
-        $folder->folder_name = $request->folder_name;
+        $folder->folder_name = $request->get('folder_name');
+        $folder->code = $request->get('code');
+
         if($folder->update()){
-          return response()->json(['success' => true, 'message' => 'Folder Updated Successfully'], 200);
+          return response()->json(['success' => true, 'message' => 'Folder Updated Succesfully'], 200);
         }
     }
 
@@ -102,9 +105,12 @@ class FolderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        if(Folder::find($id)->delete()){
-          return response()->json(['success' => true, 'message' => 'Folder Deleted Successfully'], 200);
+    {   
+        $folder = Folder::find($id);
+        if(isset($folder)){
+            if($folder->delete()){
+              return response()->json(['success' => true, 'message' => 'Folder Deleted Succesfully'], 200);
+            }            
         }
         else{
           return response()->json(['success' => false, 'message' => 'Folder Not Deleted'], 400);
