@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Folder;
+use App\Folder;
 
 class FolderTest extends TestCase
 {
