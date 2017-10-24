@@ -15,7 +15,7 @@ class WorkpaperController extends Controller
      */
     public function index()
     {
-        return response(array('data' => Workpaper::all()->toArray()), 200);
+        return response()->json(array('data' => Workpaper::all()->toArray()), 200);
     }
 
     /**
@@ -36,14 +36,21 @@ class WorkpaperController extends Controller
      */
     public function store(Request $request)
     {
-      $code = substr($request->reference, 0, 1);
-      $paper = new Workpaper;
-      $paper->folder_id = Folder::where('code', $code)->first()->id;
-      $paper->reference = $request->reference;
-      $paper->workpaper_name = $request->workpaper_name;
-      if($paper->save()){
-        return response()->json(['success' => true, 'message' => 'Workpaper Added Successfully'], 200);
-      }
+        $validator = Validator::make($request->all(), [
+              'reference' => 'required|unique:workpapers,reference',
+              'workpaper_name' => 'required'
+              ]);
+        if ($validator->fails()) {
+            return response()->json(['errors'=>$validator->errors()], 400);
+        }
+        $code = substr($request->reference, 0, 1);
+        $paper = new Workpaper;
+        $paper->folder_id = Folder::where('code', $code)->first()->id;
+        $paper->reference = $request->reference;
+        $paper->workpaper_name = $request->workpaper_name;
+        if($paper->save()){
+          return response()->json(['success' => true, 'message' => 'Workpaper Added Successfully'], 200);
+        }
     }
 
     /**
@@ -54,7 +61,7 @@ class WorkpaperController extends Controller
      */
     public function show($id)
     {
-        return response(array('data' => Workpaper::find($id)->toArray()), 200);
+        return response()->json(array('data' => Workpaper::find($id)->toArray()), 200);
     }
 
     /**
@@ -77,6 +84,12 @@ class WorkpaperController extends Controller
      */
     public function update(Request $request, $id)
     {
+      $validator = Validator::make($request->all(), [
+            'workpaper_name' => 'required'
+            ]);
+      if ($validator->fails()) {
+          return response()->json(['errors'=>$validator->errors()], 400);
+      }
       $code = substr($request->reference, 0, 1);
       $paper = Workpaper::find($id);
       $paper->workpaper_name = $request->workpaper_name;

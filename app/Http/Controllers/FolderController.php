@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Folder;
+use Validator;
 
 class FolderController extends Controller
 {
@@ -14,7 +15,7 @@ class FolderController extends Controller
      */
     public function index()
     {
-      return response(array('data' => Folder::all()->toArray()), 200);
+      return response()->json(array('data' => Folder::all()->toArray()), 200);
     }
 
     /**
@@ -35,6 +36,13 @@ class FolderController extends Controller
      */
     public function store(Request $request)
     {
+      $validator = Validator::make($request->all(), [
+            'code' => 'required|unique:folders,code|size:1',
+            'folder_name' => 'required'
+            ]);
+      if ($validator->fails()) {
+          return response()->json(['errors'=>$validator->errors()], 400);
+      }
       $folder = new Folder;
       $folder->code = $request->code;
       $folder->folder_name = $request->folder_name;
@@ -51,7 +59,7 @@ class FolderController extends Controller
      */
     public function show($id)
     {
-      return response(array('data' => Folder::where('code', $id)->with('workpapers')->get()->toArray()), 200);
+      return response()->json(array('data' => Folder::where('code', $id)->with('workpapers')->get()->toArray()), 200);
     }
 
     /**
@@ -62,7 +70,7 @@ class FolderController extends Controller
      */
     public function edit($id)
     {
-        return response(array('data' => Folder::find($id)->toArray()), 200);
+        return response()->json(array('data' => Folder::find($id)->toArray()), 200);
     }
 
     /**
@@ -74,6 +82,12 @@ class FolderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+              'folder_name' => 'required'
+              ]);
+        if ($validator->fails()) {
+            return response()->json(['errors'=>$validator->errors()], 400);
+        }
         $folder = Folder::find($id);
         $folder->folder_name = $request->folder_name;
         if($folder->update()){
