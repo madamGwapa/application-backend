@@ -12,7 +12,7 @@ $factory->define(App\Folder::class, function (Faker $faker) {
 $factory->define(App\Workpaper::class, function (Faker $faker) {
     return [
         //
-        'reference' => $faker->unqique()->word,
+        'reference' => $faker->unique()->word,
         'content' => $faker->sentence,
         'folder_id' => function () {
             return factory('App\Folder')->create()->id;
