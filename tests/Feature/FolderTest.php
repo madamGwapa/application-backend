@@ -53,10 +53,16 @@ class FolderTest extends TestCase
 
       /** @test */
       public function view_folder_papers(){
+        // $folder = factory('App\Folder')->create();
+        // factory('App\WorkPaper', 10, ['folder_id' => $folder->id])->create();
+        // $response = $this->get('/api/folder/'.$folder->code);
+        // $response->assertStatus(200);
+
         $folder = factory('App\Folder')->create();
-        factory('App\WorkPaper', 10, ['folder_id' => $folder->id])->create();
+        factory('App\Workpaper', 10, ['folder_id' => $folder->id])->create();
         $response = $this->get('/api/folder/'.$folder->code);
         $response->assertStatus(200);
+
       }
 
 }
